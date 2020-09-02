@@ -3,6 +3,8 @@
 #define width 64
 #define height 32
 
+// Defines the CHIP-8 Hardware
+
 // Single letter identifiers are CAPITALIZED
 // All other identifiers are in camelCase
 class Chip8 {
@@ -12,7 +14,7 @@ class Chip8 {
     struct{
       // 16 Vx Registers, timers, and stack pointer (topmost level of stack)
       unsigned char V[16], delayTimer, soundTimer, stackPointer;
-      // Index register (points to RAM address), program counter (pointer to currently executing instruction), instruction stack, and current opcode
+      // Index register (points to RAM address), program counter (pointer to currently executing instruction in memory), instruction stack, and current opcode (instruction)
       unsigned short I, programCounter, stack[16], opcode;
       // Character map
       unsigned char display[width*height/8];
