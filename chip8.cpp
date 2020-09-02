@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "chip8.h"
 
+// Emulates the CHIP-8 instruction set
+
 // Single letter identifiers are CAPITALIZED
 // All other identifiers are in camelCase
 void Chip8::initialize(){
@@ -31,11 +33,20 @@ void Chip8::emulatecycle(){
           else programCounter = stack[stackPointer]; stackPointer--;
           break;
       } break;
-    case 0x1000:  // 1xxx: Sets program counter to xxx
-
-    case 0xA000:  // Axxx: Sets I to the adress xxx
-      I = opcode & 0x0FFF;
-      pc += 2; break;
+    case 0x1000:  // 1nnn: Sets program counter to nnn
+      programCounter = opcode & 0x0FFF;
+      break;
+    case 0x2000:  // 2nnn: Executes subroutine at nnn
+      stackPointer++;
+      stack[stackpointer] = opcode & 0x0FFF;
+      break;
+    case 0x3000:  // 3xkk: if V[x] == kk, skip the next instruction
+      if(V[(opcode & 0x0F00) / 0x100] == opcode & 0x00FF) programCounter+=2;
+      break;
+    case 0x4000:  // 4xkk: if V[x] != kk, skip the next instruction
+      if(V[(opcode & 0x0F00) / 0x100] == opcode & 0x00FF) programCounter+=2;
+      break;
+    
   }
 
   // Update timers
