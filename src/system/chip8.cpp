@@ -38,7 +38,7 @@ void Chip8::emulatecycle(){
       break;
     case 0x2000:  // 2nnn: Executes subroutine at nnn
       stackPointer++;
-      stack[stackpointer] = opcode & 0x0FFF;
+      stack[stackPointer] = opcode & 0x0FFF;
       break;
     case 0x3000:  // 3xkk: if V[x] == kk, skip the next instruction
       if(V[(opcode & 0x0F00) / 0x100] == opcode & 0x00FF) programCounter+=2;
@@ -154,6 +154,6 @@ void Chip8::emulatecycle(){
           break;
       } break;
   }
-
+  
   // Update timers
 }
