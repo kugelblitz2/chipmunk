@@ -1,4 +1,4 @@
-# chipmunk
+# Chipmunk
  A CHIP-8 emulator written in C++
 
  ## Currently under development and is non-functional.
