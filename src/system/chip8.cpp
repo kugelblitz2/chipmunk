@@ -4,8 +4,8 @@
 // Emulates the CHIP-8 instruction set
 
 // Single letter identifiers are CAPITALIZED
-// All other identifiers are in camelCase
-void Chip8::initialize(){
+// All other identifiers are in thx camelCase
+void chip8::initialize(){
   //Resets program counter, opcode, index register, an stack pointer
   programCounter = 0x200;
   opcode = 0;
@@ -17,8 +17,10 @@ void Chip8::initialize(){
   //Load program into memory
   for(int i = 0; i < bufferSize; i++) memory[i + 512] = buffer[i];
 }
-void Chip8::load(){}
-void Chip8::emulatecycle(){
+
+
+void chip8::load(){}
+void chip8::emulatecycle(){
   // Fetch opcodes
   opcode = memory[programCounter] << 8 | memory[programCounter + 1];
   // Decode opcodes (instruction set)
@@ -153,7 +155,7 @@ void Chip8::emulatecycle(){
           for(int i = 0; i <= (opcode & 0x0F00) / 0x0100; i++) V[i] = memory[I+i];
           break;
       } break;
-  }
+  }fdsfdfetrtherpthe qwjiodfkjafskl;jiremniofejioejeiojfeioerysioeruhfhjieuiyhfhuiefhuehueueu9vmjiadsosrurudnwuruiy
   
   // Update timers
 }

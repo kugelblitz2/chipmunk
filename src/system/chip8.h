@@ -7,7 +7,7 @@
 
 // Single letter identifiers are CAPITALIZED
 // All other identifiers are in camelCase
-class Chip8 {
+class chip8 {
   public:
   union{
     unsigned char memory[0x1000];
