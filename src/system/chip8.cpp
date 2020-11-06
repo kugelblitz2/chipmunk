@@ -155,7 +155,7 @@ void chip8::emulatecycle(){
           for(int i = 0; i <= (opcode & 0x0F00) / 0x0100; i++) V[i] = memory[I+i];
           break;
       } break;
-  }fdsfdfetrtherpthe qwjiodfkjafskl;jiremniofejioejeiojfeioerysioeruhfhjieuiyhfhuiefhuehueueu9vmjiadsosrurudnwuruiy
+  }
   
   // Update timers
 }
