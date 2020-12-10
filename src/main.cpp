@@ -1,3 +1,3 @@
 #include "system/chip8.h"
-#include "kb/keyboard.h"
+#include "io/io.h"
 #include "cassette.h"

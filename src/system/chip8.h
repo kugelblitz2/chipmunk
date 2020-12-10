@@ -2,6 +2,7 @@
 #define CHIP8_H
 #define width 64
 #define height 32
+#include "../io/io.h"
 
 // Defines the CHIP-8 Hardware
 
@@ -20,7 +21,7 @@ class chip8 {
       unsigned char display[width*height/8];
     };
   };
-  void initialize();
+  void initialize(int bufferSize, int *font, int *buffer);
   void load();
   void emulatecycle();
 };

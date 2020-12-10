@@ -5,7 +5,7 @@
 
 // Single letter identifiers are CAPITALIZED
 // All other identifiers are in thx camelCase
-void chip8::initialize(){
+void chip8::initialize(int bufferSize, int *font, int *buffer){
   //Resets program counter, opcode, index register, an stack pointer
   programCounter = 0x200;
   opcode = 0;
@@ -88,8 +88,8 @@ void chip8::emulatecycle(){
           }
           break;
         case 0x0006:  //8xy6: V[F] = least significant bit of V[x], V[x] /= 2
-          V[(opcode & 0x0F00) / 0x0100)] & 0x000F == 1 ? V[0xF] = 1 : V[0xF] == 0;
-          V[(opcode & 0x0F00) / 0x0100)] /= 2;
+          V[(opcode & 0x0F00) / 0x0100] & 0x000F == 1 ? V[0xF] = 1 : V[0xF] == 0;
+          V[(opcode & 0x0F00) / 0x0100] /= 2;
           break;
         case 0x0007:  //8xy7:
           if(V[(opcode & 0x00F0) / 0x0010] < V[(opcode & 0x0F00) / 0x0100]){
@@ -102,8 +102,8 @@ void chip8::emulatecycle(){
           }
           break;
         case 0x000E:  // 8xyE: V[F] = least significant bit of V[x], V[x] *= 2
-          V[(opcode & 0x0F00) / 0x0100)] & 0x000F == 1 ? V[0xF] = 1 : V[0xF] == 0;
-          V[(opcode & 0x0F00) / 0x0100)] *= 2;
+          V[(opcode & 0x0F00) / 0x0100] & 0x000F == 1 ? V[0xF] = 1 : V[0xF] == 0;
+          V[(opcode & 0x0F00) / 0x0100] *= 2;
           break;
      } break;
     case 0x9000:  // 9xy0: if V[x] != V[y], skip the next instruction
@@ -112,7 +112,7 @@ void chip8::emulatecycle(){
     case 0xA000:  // Annn: set I = nnn
       I = opcode & 0x0FFF; break;
     case 0xB000:  // Bnnn: set programCounter = nnn + V[0]
-      programCounter = (opcode 0x0FFF) + V[0];
+      programCounter = (opcode & 0x0FFF) + V[0];
       break;
     case 0xC000:  // Cxkk: V[x] = rand % 255 & kk
       break;
