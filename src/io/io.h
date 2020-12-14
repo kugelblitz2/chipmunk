@@ -1,6 +1,7 @@
 #ifndef IO_H
 #define IO_H
 #include <curses.h>
+#include <string>
 #include "../system/chip8.h"
 
 // Handles display output for the CHIP-8 emulator
@@ -15,7 +16,7 @@ class display {
 
     WINDOW *initWindow();                   // Initializes the CHIP-8's window
     void updateWindow();                    // Re-renders the Chip-8 window (if necessary), and all new updates to the screen
-    void displayMessage();                  // Display a message to the user (outside of the CHIP-8 window)
+    void displayMessage(std::string mesg);  // Display a message to the user (outside of the CHIP-8 window)
     void clearWindow(WINDOW *oldWindow);    // Removes the CHIP-8's window from the screen
 };
 

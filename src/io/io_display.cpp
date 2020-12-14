@@ -18,8 +18,12 @@ WINDOW *display::initWindow(){
 }
 
 void display::updateWindow(){
+    // Checks if the terminal window is big enough for a Chip-8 window
+    if(LINES < height + 2 || COLS < width + 2){
+        displayMessage("Error: Terminal window too small for emulator; please resize");
+    }
     // Checks if the Chip-8 window needs to be re-rendered
-    if(LINES != display::termY && COLS != display::termX){
+    else if(LINES != display::termY && COLS != display::termX){
         clearWindow(emuScreen);
 
         termY = LINES; termX = COLS;
@@ -27,8 +31,8 @@ void display::updateWindow(){
     }
 }
 
-void display::displayMessage(){
-    
+void display::displayMessage(std::string mesg){
+    mvprintw(0, 0, "%s", mesg);
 }
 
 void display::clearWindow(WINDOW *oldWindow){
