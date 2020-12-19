@@ -1,8 +1,7 @@
 #ifndef CHIP8_H
 #define CHIP8_H
-#define width 64
-#define height 32
-#include "../io/io.h"
+#include "../config.h"
+#include "../display/display.h"
 
 // Defines the CHIP-8 Hardware
 
@@ -18,7 +17,7 @@ class chip8 {
       // Index register (points to RAM address), program counter (pointer to currently executing instruction in memory), instruction stack, and current opcode (instruction)
       unsigned short I, programCounter, stack[16], opcode;
       // Character map
-      unsigned char display[width*height/8];
+      unsigned char displayMap[width*height/8][height];//this is wrong, fix dis pls
     };
   };
   void initialize(int bufferSize, int *font, int *buffer);

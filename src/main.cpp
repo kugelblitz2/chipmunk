@@ -1,3 +1,4 @@
 #include "system/chip8.h"
-#include "io/io.h"
+#include "display/display.h"
+#include "config.h"
 #include "cassette.h"

@@ -110,19 +110,25 @@ void chip8::emulatecycle(){
       if(V[(opcode & 0x0F00) / 0x100] != V[(opcode & 0x00F0) / 0x10]) programCounter+=2;
       break;
     case 0xA000:  // Annn: set I = nnn
-      I = opcode & 0x0FFF; break;
+      I = opcode & 0x0FFF;
+      break;
     case 0xB000:  // Bnnn: set programCounter = nnn + V[0]
       programCounter = (opcode & 0x0FFF) + V[0];
       break;
     case 0xC000:  // Cxkk: V[x] = rand % 255 & kk
+      // DO SMTH
       break;
     case 0xD000:  // Dxyn: Displays a n-bytes sprite, starting at I, and displays at coordinates V[x], V[y]. V[F] = 1 if any pixels are erased
+      // DO SMTH
       break; 
     case 0xE000:  // Exxx
       switch(opcode & 0x00FF){
         case 0x009E:  // Ex9E: Skip the next instruction if the key indicated by V[x] is pressed
+          // WRITE THIS
           break;
         case 0x00A1: // ExA1: Skip the next instruction if the key indicated by V[x] is not pressed
+          // WRITE THIS
+          break;
       } break;
     case 0xF000:  // Fxxx
       switch(opcode & 0x00FF){
@@ -130,6 +136,7 @@ void chip8::emulatecycle(){
           V[(opcode & 0x0F00) / 0x0100] = delayTimer;
           break;
         case 0x000A:  // Fx0A: Waits for a keypress, pausing all other execution of instructions, and stores the key value in V[x]
+          // WRITE THIS
           break;
         case 0x0015:  // Fx15: Sets the delayTimer to V[x]
           delayTimer = V[(opcode & 0x0F00) / 0x0100];
@@ -141,6 +148,7 @@ void chip8::emulatecycle(){
           I += V[(opcode & 0x0F00) / 0x0100];
           break;
         case 0x0029:  // Fx29: Sets I to the memory address of the character map for the character V[x]
+        // WRITE THIS
           break;
         case 0x0033:  // Fx33: IN DECIMAL, NOT HEX, store the hundreds value of V[x] at I, the tens value at I+1, and the ones value at I+2
           char hun, ten, one;
