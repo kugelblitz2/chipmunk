@@ -15,9 +15,9 @@ class display {
     WINDOW *emuScreen;              // ncurses window for the Chip-8's "video" output
 
     std::queue<std::pair <int,int> > updateQueue;   // Queue of positions <x, y> in the Chip-8 window to update
-    chip8 c8;                                       // Instance of the chip8 class pertaining to this instance of the display class
+    chip8 *c8;                                       // Instance of the chip8 class pertaining to this instance of the display class
 
-    display(chip8 c8){
+    display(chip8 *c8){
         this->c8 = c8;
     }
 

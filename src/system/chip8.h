@@ -1,7 +1,10 @@
 #ifndef CHIP8_H
 #define CHIP8_H
+#include <stdlib.h>
+#include <time.h>
 #include "../config.h"
 #include "../display/display.h"
+#include "../keyboard/keyboard.h"
 
 // Defines the CHIP-8 Hardware
 
@@ -9,28 +12,41 @@
 // All other identifiers are in camelCase
 class chip8 {
   public:
-  union{    // CHIP-8 memory structure
-    unsigned char memory[0x1000];
-    struct{
-      // CHIP-8 font sprites, starting at I = 0x0000
-      unsigned char charMap[16*5];
-      // 16 Vx Registers, timers, and stack pointer (topmost level of stack)
-      unsigned char V[16], delayTimer, soundTimer, stackPointer;
-      // Index register (points to RAM address), program counter (pointer to currently executing instruction in memory), instruction stack, and current opcode (instruction)
-      unsigned short I, programCounter, stack[16], opcode;
-      // Character map (what's being displayed on the CHIP-8 window)
-      unsigned char displayMap[width][height];
-      
-    };
-  };
+  unsigned char memory[0x1000];               // CHIP-8 memory structure
 
-  display disp = new display(this);
-  keyboard kb = new keyboard();
-  bool pause = false;
+  // Memory pointers
+  unsigned short I;                           // Index register (points to RAM address)
+  unsigned short programCounter;              // Program counter (pointer to currently executing instruction in memory)
+  
+  // Registers and stacks
+  unsigned char V[16];                        // 16 Vx registers
+  unsigned short stack[16];                   // Instruction stack
+  unsigned char stackPointer;                 // points to the top element of the stack
 
-  void initialize(int bufferSize, int *font, int *buffer);
-  void load();
-  void emulatecycle();
+  // Timers
+  unsigned char delayTimer, soundTimer;
+
+  // Display map
+  unsigned char displayMap[width][height];    // Character map (what's being displayed on the CHIP-8 window)
+
+  display disp;
+  keyboard kb;
+  bool pauseInstructions;
+
+  chip8(int programSize, int *font, int *program){
+    disp = new display(this);
+    kb = new keyboard();
+    pauseInstructions = false;
+
+    srand(time(NULL));                                  // Seed the RNG
+
+    for(int i = 0; i < 80; i++) memory[i] = font[i];    // Load font into memory
+    loadProgram(programSize, program);                  // Load program into memory
+  }
+
+  void loadProgram(int programSize, int *program);
+  void processInstruction();
+  void updateTimer();
 };
 
 #endif
