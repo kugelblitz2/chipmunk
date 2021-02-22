@@ -5,6 +5,7 @@
 // Size of the CHIP-8 Screen
 #define width 64
 #define height 32
+int scale = 1;
 
 /* CHIP-8 Keyboard
 ╔══════════════════╗
@@ -38,10 +39,10 @@ extern const char chipKey[16] = {chipkey_0, chipkey_1, chipkey_2, chipkey_3,
                                 chipkey_c, chipkey_d, chipkey_e, chipkey_f};
 
 // CHIP-8 real key to CHIP-8 key lookup
-extern std::unordered_map<char, char> keyChip = 
-    {{chipkey_0, 0x0}, {chipkey_1, 0x1}, {chipkey_2, 0x2}, {chipkey_3, 0x3},
+extern std::unordered_map<char, char> keyChip
+    ({{chipkey_0, 0x0}, {chipkey_1, 0x1}, {chipkey_2, 0x2}, {chipkey_3, 0x3},
     {chipkey_4, 0x4}, {chipkey_5, 0x5}, {chipkey_6, 0x6}, {chipkey_7, 0x7},
     {chipkey_8, 0x8}, {chipkey_9, 0x9}, {chipkey_a, 0xa}, {chipkey_b, 0xb},
-    {chipkey_c, 0xc}, {chipkey_d, 0xd}, {chipkey_e, 0xe}, {chipkey_f, 0xf}};
+    {chipkey_c, 0xc}, {chipkey_d, 0xd}, {chipkey_e, 0xe}, {chipkey_f, 0xf}});
 
 #endif

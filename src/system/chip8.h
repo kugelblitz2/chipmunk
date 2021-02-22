@@ -1,10 +1,7 @@
 #ifndef CHIP8_H
 #define CHIP8_H
-#include <stdlib.h>
-#include <time.h>
+#include <chrono>
 #include "../config.h"
-#include "../display/display.h"
-#include "../keyboard/keyboard.h"
 
 // Defines the CHIP-8 Hardware
 
@@ -29,23 +26,19 @@ class chip8 {
   // Display map
   unsigned char displayMap[width][height];    // Character map (what's being displayed on the CHIP-8 window)
 
-  display disp;
-  keyboard kb;
   bool pauseInstructions;
 
-  chip8(int programSize, int *font, int *program){
-    disp = new display(this);
-    kb = new keyboard();
+  chip8(char* romPath, char *font){
     pauseInstructions = false;
 
-    srand(time(NULL));                                  // Seed the RNG
+    srand(std::chrono::system_clock.now().time_since_epoch().count());                        // Seed the RNG
 
-    for(int i = 0; i < 80; i++) memory[i] = font[i];    // Load font into memory
-    loadProgram(programSize, program);                  // Load program into memory
+    for(int i = 0; i < 0x50; i++) memory[i] = font[i];  // Load font into memory
+    loadProgram(romPath);                     // Load program into memory
   }
 
-  void loadProgram(int programSize, int *program);
-  void processInstruction();
+  void loadProgram(char* romPath);
+  bool processorCycle();
   void updateTimer();
 };
 

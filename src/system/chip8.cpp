@@ -1,14 +1,28 @@
 #include <stdlib.h>
+#include <fstream>
 #include "chip8.h"
 
 // Load program
-void chip8::loadProgram(int programSize, int *program){
+void chip8::loadProgram(char* romPath){
   // Resets program counter, opcode, index register, an stack pointer
   programCounter = 0x200;
   I = 0;
   stackPointer = 0;
-  // Copies program into memory
-  for(int i = 0; i < programSize; i++) memory[i + 0x200] = program[i];
+  // Opens a filestream
+  std::ifstream file(romPath, std::ios::binary | std::ios::ate);
+
+  if(file.is_open()){
+    // Loads program from file to system memory
+    std::streampos programSize = file.tellg();
+    char* buffer = new char[programSize];
+    
+    file.seekg(0, std::ios::beg);
+    file.read(buffer, programSize);
+    file.close();
+
+    // Load program from system memory to CHIP-8 memory
+    for(int i = 0; i < programSize; i++) memory[programCounter+i] = buffer[i];
+  }
 }
 
 // Updates timers
@@ -20,7 +34,7 @@ void chip8::updateTimer(){
 
 
 // Emulates the CHIP-8 instruction set
-void chip8::processInstruction(){
+bool chip8::processorCycle(){
   // Fetch opcodes
   unsigned short opcode = memory[programCounter] << 8 | memory[programCounter + 1];
   // Decode opcodes (instruction set)
@@ -211,4 +225,7 @@ void chip8::processInstruction(){
           break;
       } break;
   }
+  updateTimer();
+
+  return false;
 }
